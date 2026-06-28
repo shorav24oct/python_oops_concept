@@ -1,12 +1,16 @@
 from loguru import logger
 import psycopg2
+import configparser
+
+config = configparser.ConfigParser()
+config.read(r'C:\Users\sharm\.vscode\python_programming\src\resources\config_file.ini')
 
 connector = psycopg2.connect(
-    host="localhost",
-    port=5432,
-    database="postgres",
-    user="postgres",
-    password="postgres"
+    host=config.get('postgre_database', 'host'),
+    port=config.get('postgre_database', 'port'),
+    database=config.get('postgre_database', 'database'),
+    user=config.get('postgre_database', 'user'),
+    password=config.get('postgre_database', 'password')
 )
 
 cursor = connector.cursor()
